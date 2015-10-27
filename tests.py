@@ -1,23 +1,27 @@
 import unittest
+import twisted.trial.unittest
+
+import gens_simple
+import gens_twisted
 
 
-def good_generator():
-    yield True
-
-
-def bad_generator():
-    yield bad_function()
-
-
-def bad_function():
-    raise ValueError
-
-
-class GeneratorTestCase(unittest.TestCase):
+class SimpleGeneratorsTestCase(unittest.TestCase):
 
     def test_generators(self):
-        self.assertItemsEqual(list(good_generator()), [True])
+        self.assertItemsEqual(list(gens_simple.good_generator()), [True])
         with self.assertRaises(ValueError):
-            bad_function()
+            gens_simple.bad_function()
         with self.assertRaises(ValueError):
-            list(bad_generator())
+            list(gens_simple.bad_generator())
+
+
+class TwistedGeneratorsTestCase(twisted.trial.unittest.TestCase):
+
+    def test_generators(self):
+        # Should not throw an error
+        gens_twisted.good_generator()
+        self.assertFailure(gens_twisted.bad_generator(), ValueError)
+
+
+if __name__ == '__main__':
+    unittest.main()
