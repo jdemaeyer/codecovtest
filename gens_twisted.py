@@ -9,3 +9,9 @@ def good_generator():
 @defer.inlineCallbacks
 def bad_generator():
     yield defer.fail(ValueError())
+
+
+@defer.inlineCallbacks
+def bad_generator_twoline():
+    exc = defer.fail(ValueError())
+    yield exc
