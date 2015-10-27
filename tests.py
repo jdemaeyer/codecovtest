@@ -19,8 +19,8 @@ class TwistedGeneratorsTestCase(twisted.trial.unittest.TestCase):
 
     def test_generators(self):
         gens_twisted.good_generator()
-        self.assertFailure(gens_twisted.bad_generator(), ValueError)
         self.assertFailure(gens_twisted.bad_generator_twoline(), ValueError)
+        self.assertFailure(gens_twisted.bad_generator(), ValueError)
 
 
 if __name__ == '__main__':
